@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        #demodiv{
+            width: 800px;
+            border:1px solid pink;
+            margin:0px auto;
+            overflow: hidden;
+        }
+        #demodiv>div>div{
+            float: left;
+        }
+        #demodiv img{
+            width: 200px;
+            height: 320px;
+        }
+        #demodiv>div{
+            width: 1400px;
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+        <div id="demodiv" onmouseenter="funa()" onmouseleave="funb()">
+            <div>
+
+            </div>
+        </div>
+
+        <script>
+            var newHtml="";
+            for(var i=1;i<8;i++){
+                console.log(i);
+                newHtml+="<div><img src='img/"+i+".jpg' /></div>"
+            }
+            document.getElementById("demodiv").getElementsByTagName("div")[0].innerHTML=newHtml;
+
+
+//            1.使用js动态修改制定内容的css
+
+//            (1)创建一个变量用来保存改变的值
+            var num=0;
+//            创建变量用来保存轮播图容器的宽度
+            var widthnum=1400;
+//            变量--用来保存新增图片的路径名
+            var imgnum=7;
+            var sl=setInterval(fun,10)
+            function fun(){
+//                (2)每次调用 改变的值每次--
+                num--;
+//                console.log(num);
+                document.getElementById("demodiv").getElementsByTagName("div")[0].style.left=num+"px";
+//                应为移动完默认的内容之后  没有内容显示了
+//            1.判断当当移动了200px的时候  向div最后插入一个新的<div>img src=xxxxx  </div
+            if(num%200==0){
+//                改变容器的宽度
+                widthnum+=200;
+                document.getElementById("demodiv").getElementsByTagName("div")[0].style.width=widthnum+"px";
+//                console.log("aaaaaaaaa");
+                var newdiv=document.createElement("div");
+                var newimg=document.createElement("img");
+                imgnum++;
+                if(imgnum==16){
+                    imgnum=1;
+                }
+                newimg.setAttribute("src","img/"+imgnum+".jpg");
+                newdiv.appendChild(newimg);
+                document.getElementById("demodiv").getElementsByTagName("div")[0].appendChild(newdiv)
+            }
+            }
+            function funa(){
+                clearInterval(sl)
+            }
+            function funb(){
+                sl=setInterval(fun,10);
+            }
+
+
+
+
+
+
+        </script>
+</body>
+</html>
